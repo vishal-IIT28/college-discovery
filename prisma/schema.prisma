@@ -1,0 +1,23 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model College {
+  id         String   @id @default(cuid())
+
+  name       String
+  location   String
+
+  fees       Int
+  rating     Float
+
+  courses    String[]
+  placements String
+
+  createdAt  DateTime @default(now())
+}
