@@ -1,4 +1,5 @@
 import { Prisma } from "@/generated/client";
+import { parseCompareIds } from "@/lib/compare-selection";
 import prisma from "@/lib/prisma";
 
 export type CollegeListQuery = {
@@ -6,6 +7,7 @@ export type CollegeListQuery = {
   maxFees?: string | string[] | null;
   page?: string | string[] | null;
   limit?: string | string[] | null;
+  ids?: string | string[] | null;
 };
 
 export type CollegeListItem = {
@@ -34,6 +36,7 @@ export type ParsedCollegeListQuery = {
   maxFees: number | null;
   page: number;
   limit: number;
+  ids: string[];
 };
 
 const DEFAULT_PAGE = 1;
@@ -67,6 +70,7 @@ export function parseCollegeListQuery(
     maxFees: positiveNumber(query.maxFees),
     page: positiveInt(query.page, DEFAULT_PAGE),
     limit,
+    ids: parseCompareIds(query.ids),
   };
 }
 
@@ -89,6 +93,10 @@ export function buildCollegeSearchParams(
 
   if (query.limit && query.limit !== DEFAULT_LIMIT) {
     params.set("limit", String(query.limit));
+  }
+
+  if (query.ids && query.ids.length > 0) {
+    params.set("ids", query.ids.join(","));
   }
 
   const queryString = params.toString();
@@ -115,8 +123,8 @@ export async function getColleges(
   }
 
   const total = await prisma.college.count({ where });
-  const totalPages = Math.max(1, Math.ceil(total / parsed.limit));
-  const page = Math.min(parsed.page, totalPages);
+  const totalPages = Math.ceil(total / parsed.limit);
+  const page = totalPages > 0 ? Math.min(parsed.page, totalPages) : DEFAULT_PAGE;
 
   const data = await prisma.college.findMany({
     where,

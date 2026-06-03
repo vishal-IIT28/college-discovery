@@ -1,4 +1,5 @@
 import { CollegeCard } from "@/components/CollegeCard";
+import { CompareBar } from "@/components/CompareBar";
 import { CollegeFilters } from "@/components/CollegeFilters";
 import { Pagination } from "@/components/Pagination";
 import { getColleges, parseCollegeListQuery } from "@/lib/colleges";
@@ -9,6 +10,7 @@ type HomeProps = {
     maxFees?: string | string[];
     page?: string | string[];
     limit?: string | string[];
+    ids?: string | string[];
   }>;
 };
 
@@ -25,6 +27,7 @@ export default async function Home({ searchParams }: HomeProps) {
         search={query.search}
         maxFees={query.maxFees}
         limit={query.limit}
+        ids={query.ids}
       />
 
       {colleges.length > 0 ? (
@@ -49,6 +52,8 @@ export default async function Home({ searchParams }: HomeProps) {
           </p>
         </section>
       )}
+
+      <CompareBar />
     </main>
   );
 }

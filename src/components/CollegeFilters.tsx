@@ -7,9 +7,15 @@ type CollegeFiltersProps = {
   search: string;
   maxFees: number | null;
   limit: number;
+  ids: string[];
 };
 
-export function CollegeFilters({ search, maxFees, limit }: CollegeFiltersProps) {
+export function CollegeFilters({
+  search,
+  maxFees,
+  limit,
+  ids,
+}: CollegeFiltersProps) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
 
@@ -31,6 +37,10 @@ export function CollegeFilters({ search, maxFees, limit }: CollegeFiltersProps) 
 
     if (limit !== 6) {
       params.set("limit", String(limit));
+    }
+
+    if (ids.length > 0) {
+      params.set("ids", ids.join(","));
     }
 
     const query = params.toString();
