@@ -13,23 +13,23 @@ export default async function ComparePage({ searchParams }: ComparePageProps) {
   const colleges = await getCompareColleges(ids);
 
   return (
-    <main className="min-h-screen bg-black px-5 py-6 text-white sm:px-10">
+    <main className="min-h-screen bg-slate-50 px-5 py-8 sm:px-10">
       <div className="mx-auto max-w-6xl">
         <Link
           href="/"
-          className="inline-flex rounded-lg border border-zinc-800 px-4 py-2 text-sm font-medium text-zinc-300 transition hover:border-zinc-500 hover:text-white"
+          className="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-600 shadow-sm transition hover:border-slate-300 hover:text-slate-900"
         >
-          Back
+          ← Back to search
         </Link>
 
         <header className="mt-8 mb-8">
-          <p className="text-sm font-medium uppercase tracking-wide text-zinc-500">
+          <p className="text-xs font-semibold uppercase tracking-wider text-indigo-600">
             Comparison workspace
           </p>
-          <h1 className="mt-3 text-4xl font-bold tracking-tight sm:text-5xl">
-            Compare Colleges
+          <h1 className="mt-2 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
+            Compare colleges
           </h1>
-          <p className="mt-4 max-w-2xl text-zinc-400">
+          <p className="mt-3 max-w-2xl text-base text-slate-500">
             Review fees, outcomes, locations, and course options side by side.
           </p>
         </header>
@@ -37,17 +37,19 @@ export default async function ComparePage({ searchParams }: ComparePageProps) {
         {colleges.length > 0 ? (
           <CompareTable colleges={colleges} />
         ) : (
-          <section className="rounded-2xl border border-zinc-800 bg-zinc-950 p-8 text-center shadow-2xl shadow-black/40">
-            <p className="text-sm font-medium uppercase tracking-wide text-zinc-500">
+          <section className="rounded-xl border border-slate-100 bg-white p-10 text-center shadow-sm">
+            <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">
               Empty comparison
             </p>
-            <h2 className="mt-3 text-2xl font-bold">No colleges selected</h2>
-            <p className="mt-3 text-zinc-400">
+            <h2 className="mt-3 text-xl font-bold text-slate-900">
+              No colleges selected
+            </h2>
+            <p className="mt-2 text-sm text-slate-500">
               Select up to three colleges from the listing page to compare them.
             </p>
             <Link
               href="/"
-              className="mt-6 inline-flex rounded-lg bg-white px-5 py-3 font-semibold text-black transition hover:bg-zinc-200"
+              className="mt-6 inline-flex rounded-lg bg-indigo-600 px-5 py-2.5 font-medium text-white transition-colors hover:bg-indigo-700"
             >
               Browse colleges
             </Link>

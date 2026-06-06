@@ -51,40 +51,53 @@ export function CollegeFilters({
   }
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="mb-8 grid gap-4 rounded-xl bg-zinc-950 p-4 ring-1 ring-zinc-800 md:grid-cols-[1fr_180px_auto]"
-    >
-      <label className="grid gap-2 text-sm text-zinc-300">
-        Search by name
-        <input
-          name="search"
-          type="search"
-          defaultValue={search}
-          placeholder="e.g. Delhi University"
-          className="h-11 rounded-lg border border-zinc-800 bg-black px-3 text-white outline-none transition focus:border-zinc-500"
-        />
-      </label>
+    <section className="mb-10 rounded-2xl border border-slate-100 bg-white p-6 shadow-sm sm:p-8">
+      <div className="mb-6">
+        <h2 className="text-lg font-semibold text-slate-900">
+          Find your college
+        </h2>
+        <p className="mt-1 text-sm text-slate-500">
+          Search by name or set a maximum fee budget to narrow results.
+        </p>
+      </div>
 
-      <label className="grid gap-2 text-sm text-zinc-300">
-        Max fees
-        <input
-          name="maxFees"
-          type="number"
-          min="0"
-          defaultValue={maxFees ?? ""}
-          placeholder="250000"
-          className="h-11 rounded-lg border border-zinc-800 bg-black px-3 text-white outline-none transition focus:border-zinc-500"
-        />
-      </label>
-
-      <button
-        type="submit"
-        disabled={isPending}
-        className="h-11 self-end rounded-lg bg-white px-5 font-semibold text-black transition hover:bg-zinc-200 disabled:cursor-not-allowed disabled:bg-zinc-500"
+      <form
+        onSubmit={handleSubmit}
+        className="grid gap-4 md:grid-cols-[1fr_180px_auto] md:items-end"
       >
-        {isPending ? "Loading..." : "Apply"}
-      </button>
-    </form>
+        <label className="grid gap-1.5">
+          <span className="text-sm font-medium text-slate-700">
+            Search by name
+          </span>
+          <input
+            name="search"
+            type="search"
+            defaultValue={search}
+            placeholder="e.g. Delhi University"
+            className="h-11 rounded-lg border border-slate-200 bg-white px-3.5 text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100"
+          />
+        </label>
+
+        <label className="grid gap-1.5">
+          <span className="text-sm font-medium text-slate-700">Max fees</span>
+          <input
+            name="maxFees"
+            type="number"
+            min="0"
+            defaultValue={maxFees ?? ""}
+            placeholder="250000"
+            className="h-11 rounded-lg border border-slate-200 bg-white px-3.5 text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100"
+          />
+        </label>
+
+        <button
+          type="submit"
+          disabled={isPending}
+          className="h-11 rounded-lg bg-indigo-600 px-6 py-2.5 font-medium text-white transition-colors hover:bg-indigo-700 disabled:cursor-not-allowed disabled:bg-indigo-300"
+        >
+          {isPending ? "Loading..." : "Apply"}
+        </button>
+      </form>
+    </section>
   );
 }

@@ -15,10 +15,12 @@ export function CompareTable({ colleges }: CompareTableProps) {
       label: "Fees",
       render: (college: CompareCollege) =>
         currencyFormatter.format(college.fees),
+      tabular: true,
     },
     {
       label: "Rating",
       render: (college: CompareCollege) => college.rating.toFixed(1),
+      tabular: true,
     },
     {
       label: "Placements",
@@ -27,41 +29,48 @@ export function CompareTable({ colleges }: CompareTableProps) {
   ];
 
   return (
-    <div className="overflow-x-auto rounded-2xl border border-zinc-800 bg-zinc-950 shadow-2xl shadow-black/40">
-      <table className="w-full min-w-[760px] border-collapse text-left">
-        <thead>
-          <tr className="border-b border-zinc-800">
-            <th className="w-40 bg-black/40 p-5 text-sm font-semibold text-zinc-400">
-              Field
-            </th>
-            {colleges.map((college) => (
-              <th key={college.id} className="p-5 text-lg font-bold text-white">
-                {college.name}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {rows.map((row) => (
-            <tr
-              key={row.label}
-              className="border-b border-zinc-900 last:border-0"
-            >
-              <th className="bg-black/30 p-5 text-sm font-semibold text-zinc-400">
-                {row.label}
+    <div className="overflow-hidden rounded-xl border border-slate-100 bg-white shadow-sm">
+      <div className="overflow-x-auto">
+        <table className="w-full min-w-[760px] border-collapse text-left">
+          <thead>
+            <tr className="border-b border-slate-200 bg-slate-100/80">
+              <th className="w-44 px-6 py-4 text-xs font-semibold uppercase tracking-wide text-slate-500">
+                Metric
               </th>
               {colleges.map((college) => (
-                <td
-                  key={`${college.id}-${row.label}`}
-                  className="min-w-52 p-5 align-top text-zinc-200"
+                <th
+                  key={college.id}
+                  className="px-6 py-4 text-sm font-bold text-slate-900"
                 >
-                  {row.render(college)}
-                </td>
+                  {college.name}
+                </th>
               ))}
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {rows.map((row) => (
+              <tr
+                key={row.label}
+                className="border-b border-slate-100 last:border-0"
+              >
+                <th className="px-6 py-5 text-sm font-semibold text-slate-500">
+                  {row.label}
+                </th>
+                {colleges.map((college) => (
+                  <td
+                    key={`${college.id}-${row.label}`}
+                    className={`min-w-52 px-6 py-5 align-top text-sm text-slate-800 ${
+                      row.tabular ? "font-semibold tabular-nums" : ""
+                    }`}
+                  >
+                    {row.render(college)}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }
